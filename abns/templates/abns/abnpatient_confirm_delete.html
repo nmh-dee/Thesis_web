@@ -1,0 +1,12 @@
+{% extends "base_menu.html" %}
+{% block content %}
+<h1>Delete Predict Abnormalities</h1>
+
+<p>Are you sure you want to delete the patient: {{ abnpatient }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete." class="btn btn-warning">
+  <input type="submit" value="Cancel" onclick="window.location.href='{% url 'abns:all' %}';return false;" class="btn btn-primary">
+</form>
+{% endblock %}

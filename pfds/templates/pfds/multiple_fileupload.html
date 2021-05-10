@@ -1,0 +1,69 @@
+{% extends "base_menu.html" %}
+<!--
+<head> 
+    <meta charset = "UTF-8">
+    <title>Upload PF Patient Informations </title>
+
+</head>
+<body>
+-->
+{% load crispy_forms_tags %}
+{% block content %}
+<form method="post" action="/pfds/multipleupload_save" enctype="multipart/form-data" style="margin-left:10%">
+    {% csrf_token %}
+    <h1> Form </h1>
+    Patient Name: <br>
+    <input type= "text" name = "name" ><br>
+    Patient Ages:<br>
+    <input type= "text" name = "ages" ><br>
+    Gender:<br> 
+    <td>
+        <input type= "radio" name = "gender" value= 'Male'> Male
+        <input type= "radio" name = "gender" value ='Female'> Female
+    </td>
+    <br>
+    Smoke Status: <br>
+    <input type= "radio" name = "smoke" value= 'Never Smoked' > Never Smoked<br>
+    <input type= "radio" name = "smoke" value= 'Ex-smoker' > Ex-smoker<br>
+    <input type= "radio" name = "smoke" value= 'Currently smokes' > Currently smokes<br>
+    Enter FVC base: <br>
+    <td>
+    FVC base: <input type = "text" name = "fvc"> 
+    week base:<input type = "text" name = "week">
+    percent: <input type ='text' name = "percent">
+    </td>
+    <br>
+    Predict FVC:<br> 
+    <input type= "text" name = "week_start"> to <input type= "text" name = "week_end">
+    <br>
+    Patient CT Scan image: <br>
+    <div id="images">
+    <input type= "file" name = "file[]"><br>
+        </div>
+    <input type= "button" name ="add_image" id="add_image" value = "Add Image">
+    <input type="submit" value= "Save Data">
+    
+    
+</form>
+<script>
+    document.getElementById("add_image").onclick= function (ev) {
+       
+        var image = document.getElementById("images");
+
+        var newInput=document.createElement("input");
+        newInput.type="file";
+        newInput.name="file[]";
+
+        var br=document.createElement("br");
+        var br1 = document.createElement("br");
+
+        image.appendChild(newInput);
+        image.appendChild(br);
+        image.appendChild(br1);
+
+    }
+</script>
+
+{% endblock%}
+
+<!--</body> -->

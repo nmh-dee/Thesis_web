@@ -1,0 +1,29 @@
+{% extends "base_menu.html" %}
+{% block content %}
+<h1>All Abnormalities Predict:</h1>
+<p>
+{% if apatient_list %}
+<ul>
+  {% for abn in apatient_list %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span onclick="window.location.href='{% url 'abns:abn_detail'  abn.id %}';">{{ abn.name_patient }}</span>
+        {% if abn.owner == user %}
+          <span onclick="window.location.href='{% url 'abns:abn_delete' abn.id %}';"  style="float:right"><i class="fa fa-trash" style="color:red"></i></span>
+          <span onclick="window.location.href='{% url 'abns:abn_update' abn.id %}';" style="float:right; padding-right:10px"><i class="fa fa-pencil" style="color:blue"></i></span>
+        {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p>There are no predict in the database.</p>
+{% endif %}
+</p>
+<p>
+<a href="{% url 'abns:abn_create' %}" class="btn btn-success">Add an Predict</a> 
+{% if user.is_authenticated %}
+<a href="{% url 'logout' %}?next={% url 'abns:all' %}"class="btn btn-warning">Logout</a>
+{% else %}
+<a href="{% url 'login' %}?next={% url 'abns:all' %}" class="btn btn-primary">Login</a>
+{% endif %}
+</p>
+{% endblock %}

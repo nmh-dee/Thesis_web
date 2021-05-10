@@ -1,0 +1,12 @@
+{% extends "base_menu.html" %}
+{% block content %}
+<h1>Delete Pulmonary Fibrosis Patient Infos</h1>
+
+<p>Are you sure you want to delete the patient: {{ abnpatient }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete." class="btn btn-warning">
+  <input type="submit" value="Cancel" onclick="window.location.href='{% url 'pfds:all' %}';return false;" class="btn btn-primary">
+</form>
+{% endblock %}

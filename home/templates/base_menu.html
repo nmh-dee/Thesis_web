@@ -1,0 +1,40 @@
+{% extends "base_bootstrap.html" %}
+{% block navbar %}
+<!--{% load app_tags %} -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/">{{ settings.APP_NAME }}</a>
+    </div>
+    <!-- https://stackoverflow.com/questions/22047251/django-dynamically-get-view-url-and-check-if-its-the-current-page -->
+    <ul class="nav navbar-nav">
+      {% url 'abns' as abns %}
+      <li {% if request.get_full_path == abns %}class="active"{% endif %}>
+          <a href="{% url 'abns:all' %}">Abnormalities</a></li>
+
+      {% url 'pfds' as pfds %}
+      <li {% if request.get_full_path == pfds %}class="active"{% endif %}>
+          <a href="{% url 'pfds:pfd_create' %}">PFDs</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+        <li>
+        <a href="{% url 'abns:abn_create' %}">Create Predict</a>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                <img style="width: 25px;" src="{{ user|gravatar:60 }}"/><b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{% url 'logout' %}?next={% url 'abns:all' %}">Logout</a></li>
+            </ul>
+        </li>
+        {% else %}
+        <li>
+        <a href="{% url 'login' %}?next={% url 'abns:all' %}">Login</a>
+        </li>
+        {% endif %}
+    </ul>
+  </div>
+</nav>
+{% endblock %}
